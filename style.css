@@ -1,0 +1,63 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  /* background: linear-gradient(
+    to right,
+    rgb(182, 244, 146),
+    rgb(51, 139, 147)
+  ) !important; */
+  background: #f46b45; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #eea849,
+    #f46b45
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #eea849,
+    #f46b45
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  font-family: "Exo", sans-serif;
+}
+.form-control {
+  width: 62vw;
+}
+.answerInput {
+  width: 32vw;
+}
+.message {
+  font-size: 1.3em;
+}
+.textDesc {
+  width: 80vw;
+}
+.theList {
+  width: 62vw;
+}
+.saveBtn {
+  display: none;
+}
+.textDesc {
+  width: 62vw;
+}
+.answerInput {
+  width: 52vw;
+}
+hr {
+  width: 62vw;
+  margin-top: 2em;
+}
+@media (max-width: 550px) {
+  .form-control {
+    width: 75vw;
+  }
+  .answerInput {
+    width: 52vw;
+  }
+  .theList {
+    width: 75wv;
+  }
+}
