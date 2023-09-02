@@ -4,11 +4,6 @@
   box-sizing: border-box;
 }
 body {
-  /* background: linear-gradient(
-    to right,
-    rgb(182, 244, 146),
-    rgb(51, 139, 147)
-  ) !important; */
   background: #f46b45; /* fallback for old browsers */
   background: -webkit-linear-gradient(
     to right,
@@ -21,6 +16,12 @@ body {
     #f46b45
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   font-family: "Exo", sans-serif;
+}
+.mainDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .form-control {
   width: 62vw;

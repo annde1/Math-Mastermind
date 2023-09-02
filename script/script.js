@@ -49,6 +49,20 @@ const reloadList = () => {
     );
   }
 };
+//Function evaluateAnswer returns correct answer based on the operand
+const evaluateAnswer = () => {
+  let correctAnswer;
+  if (operand == "+") {
+    correctAnswer = num1 + num2;
+  } else if (operand == "-") {
+    correctAnswer = num1 - num2;
+  } else if (operand == "*") {
+    correctAnswer = num1 * num2;
+  } else if (operand == "/") {
+    correctAnswer = num1 / num2;
+  }
+  return correctAnswer;
+};
 
 //Function checkValidInputs checks if user inputs are valid before pressing start
 const checkValidInputs = (minimal, maximal, operand, num1, num2) => {
@@ -106,83 +120,72 @@ const updateListHtml = (num1, num2, operand, answer, correctAnswer) => {
   listItem.appendChild(div1);
   div1.appendChild(div2);
   listItem.appendChild(span);
-  // console.log(span);
 };
 
-startBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-  min = +minimalNumInput.value;
-  max = +maximalNumInput.value;
-  operand = operandInput.value;
-  num1 = generateRandom(min, max);
-  num2 = generateRandom(min, max);
+window.addEventListener("load", () => {
+  startBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    min = +minimalNumInput.value;
+    max = +maximalNumInput.value;
+    operand = operandInput.value;
+    num1 = generateRandom(min, max);
+    num2 = generateRandom(min, max);
 
-  // when clicking on the start button check if inputs are valid and disable or enable check button
-  // if (checkValidInputs(min, max, operand, num1, num2)) {
-  //   checkBtn.disabled = false;
-  // }
-  //update the check button state based on whatever the checkValidInputs function returns
-  checkBtn.disabled = !checkValidInputs(min, max, operand, num1, num2);
-});
+    //update the check button state based on whatever the checkValidInputs function returns
+    checkBtn.disabled = !checkValidInputs(min, max, operand, num1, num2);
+  });
 
-checkBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-  //declaring variable for storing the correct answer
-  let correctAnswer;
-  //Creating an object of data to store in local storage
-  const gameData = {
-    num1: num1,
-    num2: num2,
-    operand: operand,
-    userGuess: +document.getElementById("inputAnswer").value,
-    correctAnswer: correctAnswer,
-  };
-  //Only after user answers the question showing the save button
-  const saveBtn = document.getElementById("saveBtn");
-  saveBtn.style.display = "block";
+  checkBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    //declaring variable for storing the correct answer
+    let correct;
+    //Creating an object of data to store in local storage
+    const gameData = {
+      num1: num1,
+      num2: num2,
+      operand: operand,
+      userGuess: +document.getElementById("inputAnswer").value,
+      correctAnswer: correct,
+    };
+    //Only after user answers the question showing the save button
+    const saveBtn = document.getElementById("saveBtn");
+    saveBtn.style.display = "block";
 
-  //evaluate correct answer
-  if (operand == "+") {
-    correctAnswer = num1 + num2;
-  } else if (operand == "-") {
-    correctAnswer = num1 - num2;
-  } else if (operand == "*") {
-    correctAnswer = num1 * num2;
-  } else if (operand == "/") {
-    correctAnswer = num1 / num2;
-  }
+    //evaluate correct answer
 
-  const value = gameData.userGuess;
-  //Move this to seperate function
-  if (!value || typeof value == "string") {
-    const inputValue = document.getElementById("inputAnswer");
-    inputValue.value = "";
-    inputValue.setAttribute("placeholder", "Please enter a valid number");
-    document.getElementById("saveBtn").style.display = "none";
-    return;
-  } else if (value === correctAnswer) {
-    message.textContent = "Your answer is correcrt! 🥳";
-  } else {
-    message.textContent = "Your answer is wrong! 😭";
-  }
+    correct = evaluateAnswer();
+    const value = gameData.userGuess;
+    //Move this to seperate function
+    if (!value || typeof value == "string") {
+      const inputValue = document.getElementById("inputAnswer");
+      inputValue.value = "";
+      inputValue.setAttribute("placeholder", "Please enter a valid number");
+      document.getElementById("saveBtn").style.display = "none";
+      return;
+    } else if (value === correct) {
+      message.textContent = "Your answer is correcrt! 🥳";
+    } else {
+      message.textContent = "Your answer is wrong! 😭";
+    }
 
-  gameData.correctAnswer = correctAnswer;
-  data.push(gameData);
+    gameData.correctAnswer = correct;
+    data.push(gameData);
 
-  updateListHtml(
-    gameData.num1,
-    gameData.num2,
-    gameData.operand,
-    gameData.userGuess,
-    gameData.correctAnswer
-  );
+    updateListHtml(
+      gameData.num1,
+      gameData.num2,
+      gameData.operand,
+      gameData.userGuess,
+      gameData.correctAnswer
+    );
+    newGame();
+  });
+
+  saveBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    const jsonStr = JSON.stringify(data);
+    localStorage.setItem("game", jsonStr);
+  });
+  reloadList();
   newGame();
 });
-
-saveBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-  const jsonStr = JSON.stringify(data);
-  localStorage.setItem("game", jsonStr);
-});
-reloadList();
-newGame();
