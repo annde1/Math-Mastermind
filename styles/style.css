@@ -23,18 +23,14 @@ body {
   justify-content: center;
   align-items: center;
 }
-.form-control {
-  width: 62vw;
-}
+
 .answerInput {
-  width: 32vw;
+  width: 50vw !important;
 }
 .message {
   font-size: 1.3em;
 }
-.textDesc {
-  width: 80vw;
-}
+
 .theList {
   width: 62vw;
 }
@@ -44,21 +40,25 @@ body {
 .textDesc {
   width: 62vw;
 }
-.answerInput {
-  width: 52vw;
-}
+
 hr {
   width: 62vw;
   margin-top: 2em;
 }
 @media (max-width: 550px) {
   .form-control {
-    width: 75vw;
+    width: 85vw;
   }
   .answerInput {
-    width: 52vw;
+    width: 62vw !important;
   }
-  .theList {
-    width: 75wv;
+
+  .badge {
+    margin-left: 0.5rem;
   }
+  .list-group {
+    width: 85%;
+  }
+}
+@media screen and (max-width: 534px) {
 }
